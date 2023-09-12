@@ -1,7 +1,6 @@
 'use client'
-import { MediaRecorder } from "extendable-media-recorder";
 import { finderPost } from "@/utils/finderapi";
-
+import dynamic from "next/dynamic";
 const AudioRecorder = ({
   setStatus,
   setSong,
@@ -9,6 +8,9 @@ const AudioRecorder = ({
   setRecording,
   setSeconds,
 }) => {
+  const MediaRecorder  = dynamic(()=>import('extendable-media-recorder').then((mob)=>mob.MediaRecorder),{
+    ssr:false
+  }) // dynamic import for error "ReferenceError: Worker is not defined" solved by seeing https://github.com/DeltaCircuit/react-media-recorder/issues/107#issuecomment-1510277225
   const startRecording = async () => {
     setStatus("Recording ");
     navigator.mediaDevices

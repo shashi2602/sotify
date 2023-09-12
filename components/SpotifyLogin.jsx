@@ -8,7 +8,7 @@ export default function SpotifyLogin() {
     return (
       <>
         Signed in as {session.user.email} <br />
-        <button className='p-2 bg-red-600 text-white rounded-md'  onClick={() => signOut()}>Spotify</button>
+        <button className='p-2 bg-red-600 text-white rounded-md'  onClick={() => signOut({redirect:false})}>Spotify</button>
       </>
     )
   }

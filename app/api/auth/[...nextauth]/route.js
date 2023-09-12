@@ -1,6 +1,37 @@
 import NextAuth from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
 
+async function refreshToken(token) {
+  const response = await fetch("https://accounts.spotify.com/api/token", {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization:
+        "Basic " +
+        new Buffer.from(
+          process.env.SPOTIFY_CLIENT_ID +
+            ":" +
+            process.env.SPOTIFY_CLIENT_SECRET
+        ).toString("base64"),
+    },
+    body: new URLSearchParams({
+      grant_type: "refresh_token",
+      refresh_token: token.refresh_token,
+    }),
+    method: "POST",
+  });
+  console.log("refreshed token");
+  const tokens = await response.json();
+  console.log(tokens);
+  const date = new Date(tokens.expires_in * 1000);
+  return {
+    ...token, // Keep the previous token properties
+    access_token: tokens.access_token,
+    expires_at: date,
+    access_token: tokens.refresh_token ?? token.refresh_token,
+    msg: "refresh_token success",
+  };
+}
+
 const handler = NextAuth({
   providers: [
     SpotifyProvider({
@@ -14,12 +45,41 @@ const handler = NextAuth({
       },
     }),
   ],
+  secret: process.env.SECRET,
   callbacks: {
-    async session({ session, token, user }) {
-      // Send properties to the client, like an access_token and user id from a provider.
-      session.accessToken = token.accessToken;
-      session.user.id = token.id;
+    async jwt({ token, account }) {
+      // if (account) {
+      //   // Save the access token and refresh token in the JWT on the initial login
 
+      //   return {
+      //     ...token,
+      //     access_token: account.access_token,
+      //     expires_at: date,
+      //     refresh_token: account.refresh_token,
+      //     spotify_id: account.providerAccountId,
+      //   };
+      // }
+      // if (Date() < token.expires_at) {
+      //   // If the access token has not expired yet, return it
+      //   return token;
+      // }
+      // return await refreshToken(token);
+      if (account) {
+        const date = new Date(account.expires_at * 1000);
+        token.access_token = account.access_token;
+        token.refresh_token = account.refresh_token;
+        token.spotify_id = account.providerAccountId;
+        //to milliseconds
+        token.expires_at = account.expires_at;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Send properties to the client, like an access_token from a provider.
+      session.user.accessToken = token.access_token;
+      session.user.refreshToken = token.refresh_token;
+      session.user.spotify_id = token.spotify_id;
+      session.user.expires_at = token.expires_at ?? "";
       return session;
     },
   },

@@ -16,35 +16,11 @@ export default function Home() {
   const [error, setError] = useState("");
   const [status, setStatus] = useState("");
   const [seconds, setSeconds] = useState(0);
-  const { data: session } = useSession();
-  useEffect(() => {
-    console.log(session);
-  }, [session]);
+  const { data } = useSession();
+  console.log(data);
   // const { isLoggedIn, user } = useSelector((state) => state.auth);
   // const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (window.location.hash) {
-  //     const token = window.location.hash
-  //       .substring(1)
-  //       .split("&")[0]
-  //       .split("=")[1];
-  //     localStorage.setItem("token", token);
-  //     window.location.hash = "";
-  //     window.location.reload();
-  //   }
-  // }, []);
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     if (user == null) {
-  //       if (localStorage.getItem("token")) {
-  //         const userData = await getUserInfo();
-  //         dispatch(login(userData));
-  //       }
-  //     }
-  //   };
-  //   fetchUser();
-  // }, []);
   return (
     <main className="grid place-items-center h-screen">
       <div className="flex flex-col gap-3">

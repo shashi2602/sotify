@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const token = localStorage.getItem("token");
+const token = "";
 
 const instance = axios.create({
   baseURL: "https://api.spotify.com/v1/",
