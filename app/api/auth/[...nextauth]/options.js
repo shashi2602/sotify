@@ -15,28 +15,11 @@ export const nextOptions = {
   secret: process.env.SECRET,
   callbacks: {
     async jwt({ token, account }) {
-      // if (account) {
-      //   // Save the access token and refresh token in the JWT on the initial login
-
-      //   return {
-      //     ...token,
-      //     access_token: account.access_token,
-      //     expires_at: date,
-      //     refresh_token: account.refresh_token,
-      //     spotify_id: account.providerAccountId,
-      //   };
-      // }
-      // if (Date() < token.expires_at) {
-      //   // If the access token has not expired yet, return it
-      //   return token;
-      // }
-      // return await refreshToken(token);
       if (account) {
         const date = new Date(account.expires_at * 1000);
         token.access_token = account.access_token;
         token.refresh_token = account.refresh_token;
         token.spotify_id = account.providerAccountId;
-        //to milliseconds
         token.expires_at = account.expires_at;
       }
       return token;

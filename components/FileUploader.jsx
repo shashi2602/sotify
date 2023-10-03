@@ -4,15 +4,16 @@ import { finderPost } from "@/utils/finderapi";
 const FileUploader = ({ setStatus, setSong, setError }) => {
   const handleFileChange = async(event) => {
     const file = event.target.files[0];
-    setStatus("file selected");
     if (file) {
       const data = new FormData();
       data.append("file", file);
+      setStatus(true)
       const response =await finderPost(data);
       console.log("🚀 ~ file: FileUploader.jsx:12 ~ handleFileChange ~ response:", response)
       if (response?.data?.length == 0) {
         setError(response.message);
       }
+      setStatus(false)
       setSong(response);
     } else {
       setError("No file selected");
@@ -20,7 +21,7 @@ const FileUploader = ({ setStatus, setSong, setError }) => {
   };
 
   return (
-    <div className="p-3 font-semibold">
+    <div className="flex ">
       <input
         type="file"
         id="upload"
@@ -36,8 +37,9 @@ const FileUploader = ({ setStatus, setSong, setError }) => {
         style={{
           cursor: "pointer",
         }}
+        className= "cursor-pointer hover:bg-slate-900 hover:translate-x-2 duration-500 shadow-xl hover:shadow-2xl hover:shadow-slate-200 shadow-slate-100 bg-slate-800 font-lexend p-2 px-4 flex text-white rounded-full items-center"
       >
-        Upload
+      💿 Upload
       </label>
     </div>
   );

@@ -1,6 +1,7 @@
 'use client'
 import { finderPost } from "@/utils/finderapi";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 const AudioRecorder = ({
   setStatus,
   setSong,
@@ -12,7 +13,7 @@ const AudioRecorder = ({
     ssr:false
   }) // dynamic import for error "ReferenceError: Worker is not defined" solved by seeing https://github.com/DeltaCircuit/react-media-recorder/issues/107#issuecomment-1510277225
   const startRecording = async () => {
-    setStatus("Recording ");
+  
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then((stream) => {
@@ -27,6 +28,7 @@ const AudioRecorder = ({
           });
           const data = new FormData();
           data.append("file", blob);
+          setStatus(true)
           const response = finderPost(data);
           console.log(
             "🚀 ~ file: AudioRecorder.jsx:28 ~ mediaRecorder.addEventListener ~ response:",
@@ -35,6 +37,7 @@ const AudioRecorder = ({
           if (response?.data?.length == 0) {
             setError(response.message);
           }
+          setStatus(false)
           setSong(response);
         });
         setSeconds(10);
@@ -46,6 +49,7 @@ const AudioRecorder = ({
         setRecording(true);
         setTimeout(() => {
           mediaRecorder.stop();
+          setRecording(false)
           clearInterval(countdownInterval);
         }, 10000);
       })
@@ -57,8 +61,8 @@ const AudioRecorder = ({
 
   return (
     <div>
-      <button className="p-3 font-semibold" onClick={startRecording}>
-        {"Record"}
+      <button className=" cursor-pointer hover:opacity-95 hover:translate-x-2 duration-500 shadow-xl hover:shadow-2xl hover:shadow-slate-200 shadow-slate-100  font-lexend  p-2 px-4 flex text-black rounded-full items-center" onClick={startRecording}>
+      {"🎤 Record"}
       </button>
     </div>
   );

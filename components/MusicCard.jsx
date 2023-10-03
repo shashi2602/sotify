@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 export default function MusicCard({ song }) {
+  console.log(song);
   return (
     <div
       style={{
