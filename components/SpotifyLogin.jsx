@@ -6,14 +6,15 @@ export default function SpotifyLogin() {
   const { data: session } = useSession();
   if (session?.user) {
     return (
-      <>
+      <div className="text-green-600 font-semibold flex place-content-center">
+        <FaSpotify className="w-5 h-5 fill-current mt-2" />
         <button
-          className="p-2 bg-red-600 text-white rounded-md"
+          className="p-2 "
           onClick={() => signOut({ redirect: false })}
         >
-          logout
+          {session?.user.name} 
         </button>
-      </>
+      </div>
     );
   }
   return (

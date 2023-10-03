@@ -60,7 +60,7 @@ export default function InstagramBtn({setSong,setStatus }) {
             <ImSearch />
           </button>
         </div>
-        <p className="text-center"> {error}</p>
+        <p className="text-center text-red-400 p-2 ease-in-out"> {error}</p>
     </div>
   );
 }
