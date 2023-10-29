@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getSearchResult, getUserInfo } from "./spotify";
 
 const url = "https://honestbeneficialbackend.shashippk.repl.co/findSong";
 

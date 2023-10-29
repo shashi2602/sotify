@@ -8,11 +8,8 @@ export default function SpotifyLogin() {
     return (
       <div className="text-green-600 font-semibold flex place-content-center">
         <FaSpotify className="w-5 h-5 fill-current mt-2" />
-        <button
-          className="p-2 "
-          onClick={() => signOut({ redirect: false })}
-        >
-          {session?.user.name} 
+        <button className="p-2 " onClick={() => signOut({ redirect: false })}>
+          {session?.user?.name}
         </button>
       </div>
     );
@@ -20,14 +17,13 @@ export default function SpotifyLogin() {
   return (
     <>
       <button
-        className=" p-2 text-green-600 "
+        className=" p-2 text-green-500 "
         onClick={() => signIn("spotify")}
       >
         <div className="flex gap-2">
-        <span className="font-semibold text-md pb-2">Login with</span>
- <FaSpotify className="w-5 h-5 fill-current" />  
+          <span className="font-semibold text-md pb-2">Login with</span>
+          <FaSpotify className="w-5 h-5 fill-current" />
         </div>
-
       </button>
     </>
   );

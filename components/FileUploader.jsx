@@ -1,22 +1,32 @@
 /* eslint-disable react/prop-types */
+import { useSotifyContext } from "@/context/SotifyContext";
 import { finderPost } from "@/utils/finderapi";
 
-const FileUploader = ({ setStatus, setSong, setError }) => {
-  const handleFileChange = async(event) => {
+const FileUploader = () => {
+  const { setErrorMsg, setStatusOfFetch, setRecognizeSong, addSongToHisory } =
+    useSotifyContext();
+  const handleFileChange = async (event) => {
+    setRecognizeSong([]);
     const file = event.target.files[0];
     if (file) {
       const data = new FormData();
       data.append("file", file);
-      setStatus(true)
-      const response =await finderPost(data);
-      console.log("🚀 ~ file: FileUploader.jsx:12 ~ handleFileChange ~ response:", response)
+      setStatusOfFetch("Finding Song...");
+      const response = await finderPost(data);
+      console.log(
+        "🚀 ~ file: FileUploader.jsx:12 ~ handleFileChange ~ response:",
+        response
+      );
+
       if (response?.data?.length == 0) {
-        setError(response.message);
+        setErrorMsg(response.message);
+      } else {
+        setRecognizeSong(response);
+        addSongToHisory(response?.data);
       }
-      setStatus(false)
-      setSong(response);
+      setStatusOfFetch("");
     } else {
-      setError("No file selected");
+      setErrorMsg("No file selected");
     }
   };
 
@@ -32,14 +42,14 @@ const FileUploader = ({ setStatus, setSong, setError }) => {
       <label
         htmlFor="upload"
         onClick={() => {
-          setSong("");
+          setRecognizeSong("");
         }}
         style={{
           cursor: "pointer",
         }}
-        className= "cursor-pointer hover:bg-slate-900 hover:translate-x-2 duration-500 shadow-xl hover:shadow-2xl hover:shadow-slate-200 shadow-slate-100 bg-slate-800 font-lexend p-2 px-4 flex text-white rounded-full items-center"
+        className="cursor-pointer  hover:-translate-y-2 duration-500 bg-green-200 font-lexend p-2 px-4 flex text-green-600 rounded-full items-center"
       >
-      💿 Upload
+        💿 Upload
       </label>
     </div>
   );

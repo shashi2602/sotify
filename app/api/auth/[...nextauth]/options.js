@@ -1,3 +1,4 @@
+import axios from "axios";
 import SpotifyProvider from "next-auth/providers/spotify";
 export const nextOptions = {
   providers: [
@@ -30,6 +31,46 @@ export const nextOptions = {
       session.user.refreshToken = token.refresh_token;
       session.user.spotify_id = token.spotify_id;
       session.user.expires_at = token.expires_at ?? "";
+      // checking were the token is valid or not
+      axios
+        .get("https://api.spotify.com/v1/me", {
+          headers: {
+            Authorization: "Bearer " + token.access_token,
+            "Content-Type": "application/json",
+          },
+        })
+        .catch((error) => {
+          // if response code is 401 then need to refresh the token
+          if (error.response.status == 401) {
+            axios
+              .post(
+                "https://accounts.spotify.com/api/token",
+                {
+                  grant_type: "refresh_token",
+                  refresh_token: token.refresh_token,
+                },
+                {
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    Authorization:
+                      "Basic " +
+                      new Buffer.from(
+                        process.env.SPOTIFY_CLIENT_ID +
+                          ":" +
+                          process.env.SPOTIFY_CLIENT_SECRET
+                      ).toString("base64"),
+                  },
+                }
+              )
+              .then((res) => {
+                session.user.accessToken = res.data.access_token;
+                session.user.message = "refresh token has been refreshed";
+              })
+              .catch((err) => {
+                session.user.message = "error while updating session";
+              });
+          }
+        });
       return session;
     },
   },

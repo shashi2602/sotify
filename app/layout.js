@@ -1,9 +1,8 @@
 "use client";
-import { Provider } from "react-redux";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { store } from "@/utils/store";
 import AuthProvider from "@/context/AuthProvider";
+import SotifyContext from "@/context/SotifyContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <Provider store={store}>{children}</Provider>
+          <SotifyContext>{children}</SotifyContext>
         </AuthProvider>
       </body>
     </html>
