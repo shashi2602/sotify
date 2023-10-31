@@ -1,16 +1,9 @@
 "use client";
 import { useSotifyContext } from "@/context/SotifyContext";
 import { finderPost } from "@/utils/finderapi";
-import { MediaRecorder } from "extendable-media-recorder";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 const AudioRecorder = () => {
-  // const MediaRecorder = dynamic(
-  //   () => import("extendable-media-recorder").then((mob) => mob.MediaRecorder),
-  //   {
-  //     ssr: false,
-  //   }
-  // ); // dynamic import for error "ReferenceError: Worker is not defined" solved by seeing https://github.com/DeltaCircuit/react-media-recorder/issues/107#issuecomment-1510277225
   const [recording, setRecording] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const { setErrorMsg, setStatusOfFetch, setRecognizeSong, addSongToHisory } =

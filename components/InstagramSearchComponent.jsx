@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { finderGet } from "@/utils/finderapi";
 import { ImSearch } from "react-icons/im";
