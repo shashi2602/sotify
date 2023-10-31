@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+'use client'
 import { signOut, useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
