@@ -1,4 +1,3 @@
-"use client";
 import "./globals.css";
 import AuthProvider from "@/context/AuthProvider";
 import SotifyContext from "@/context/SotifyContext";
