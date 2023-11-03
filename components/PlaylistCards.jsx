@@ -1,5 +1,5 @@
 import { useSotifyContext } from "@/context/SotifyContext";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 export default function PlaylistCards() {
   const { spotifyPlaylists, status } = useSotifyContext();
@@ -9,11 +9,11 @@ export default function PlaylistCards() {
   }
   return (
     <div>
-      <p className="font-bold mb-2">Your Playlist</p>
-      <div className="flex gap-2">
+      <p className="font-bold ">Your Playlist</p>
+      <div className="flex gap-2 my-2">
         {spotifyPlaylists?.map((card, i) => {
           return (
-            <div key={i} className="flex">
+            <div key={i} className="flex p-2 bg-green-100 rounded">
               <div
                 className="h-20 w-20 rounded-md"
                 style={{

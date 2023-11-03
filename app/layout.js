@@ -1,7 +1,7 @@
 import "./globals.css";
 import AuthProvider from "@/context/AuthProvider";
 import SotifyContext from "@/context/SotifyContext";
-
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "Create Next App",
@@ -14,6 +14,7 @@ export default function RootLayout({ children }) {
       <body>
         <AuthProvider>
           <SotifyContext>{children}</SotifyContext>
+          <Toaster />
         </AuthProvider>
       </body>
     </html>

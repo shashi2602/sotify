@@ -1,13 +1,17 @@
 "use client";
 import { useSotifyContext } from "@/context/SotifyContext";
 import { finderPost } from "@/utils/finderapi";
-import dynamic from "next/dynamic";
 import { useState } from "react";
 const AudioRecorder = () => {
   const [recording, setRecording] = useState(false);
   const [seconds, setSeconds] = useState(0);
-  const { setErrorMsg, setStatusOfFetch, setRecognizeSong, addSongToHisory } =
-    useSotifyContext();
+  const {
+    setErrorMsg,
+    setStatusOfFetch,
+    setRecognizeSong,
+    addSongToHisory,
+    openResultsDialog,
+  } = useSotifyContext();
   const startRecording = async () => {
     setRecognizeSong([]);
     navigator.mediaDevices
@@ -33,8 +37,9 @@ const AudioRecorder = () => {
           if (response?.data?.length == 0) {
             setErrorMsg(response.message);
           } else {
-            setRecognizeSong(response);
+            setRecognizeSong(response?.data);
             addSongToHisory(response?.data);
+            openResultsDialog();
           }
           setStatusOfFetch("");
         });
@@ -66,7 +71,7 @@ const AudioRecorder = () => {
         </div>
       ) : (
         <button
-          className=" cursor-pointer hover:opacity-95 hover:-translate-y-2 duration-500  shadow-slate-100  font-lexend  p-2 px-4 flex text-black rounded-full items-center"
+          className=" cursor-pointer hover:opacity-95  duration-500 dark:text-white shadow-slate-100  font-lexend  p-2 px-4 flex text-black rounded-full items-center hover:bg-green-200 hover:dark:text-green-600"
           onClick={startRecording}
         >
           {"🎤 Record"}

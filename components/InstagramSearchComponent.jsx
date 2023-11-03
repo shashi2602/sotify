@@ -45,17 +45,13 @@ export default function InstagramSearchComponent() {
     setRecognizeSong([]);
     setStatusOfFetch("Finding Song...");
     const response = await finderGet(link);
-    console.log(
-      "🚀 ~ file: LinkButton.jsx:8 ~ submitLink ~ response:",
-      response
-    );
     setOpenResultDialog(true);
 
     if (response?.data?.length == 0) {
       setErrorMsg("Song Not Found");
     } else {
       addSongToHisory(response?.data);
-      setRecognizeSong(response);
+      setRecognizeSong(response?.data);
     }
     setStatusOfFetch("");
 
@@ -65,7 +61,7 @@ export default function InstagramSearchComponent() {
     <div>
       <div className="relative block">
         <input
-          className="w-full text-black  rounded-lg p-4 focus:outline-none border-2 border-slate-900"
+          className="w-full text-black dark:text-white dark:bg-black/5  rounded-lg p-4 focus:outline-none border-2 border-green-200"
           placeholder="https://www.instagram.com/reel/.."
           type="text"
           value={link}
@@ -73,11 +69,11 @@ export default function InstagramSearchComponent() {
         />
 
         <button
-          className="absolute inset-y-0 right-0 flex items-center m-2 p-4 bg-gray-200 rounded-full disabled:cursor-not-allowed"
+          className="absolute inset-y-0 right-0 flex items-center m-2 p-4 bg-green-100  rounded-full disabled:cursor-not-allowed"
           onClick={submitLink}
           disabled={!link}
         >
-          <ImSearch />
+          <ImSearch className="text-green-400" />
         </button>
       </div>
     </div>

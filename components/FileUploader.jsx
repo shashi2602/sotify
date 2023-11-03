@@ -21,7 +21,7 @@ const FileUploader = () => {
       if (response?.data?.length == 0) {
         setErrorMsg(response.message);
       } else {
-        setRecognizeSong(response);
+        setRecognizeSong(response?.data);
         addSongToHisory(response?.data);
       }
       setStatusOfFetch("");
@@ -47,7 +47,7 @@ const FileUploader = () => {
         style={{
           cursor: "pointer",
         }}
-        className="cursor-pointer  hover:-translate-y-2 duration-500 bg-green-200 font-lexend p-2 px-4 flex text-green-600 rounded-full items-center"
+        className="cursor-pointer  duration-500 bg-green-200 hover:bg-transparent hover:dark:text-white font-lexend p-2 px-4 flex text-green-600 rounded-full items-center"
       >
         💿 Upload
       </label>
