@@ -45,11 +45,12 @@ export default function InstagramSearchComponent() {
     setRecognizeSong([]);
     setStatusOfFetch("Finding Song...");
     const response = await finderGet(link);
-    setOpenResultDialog(true);
+    
 
     if (response?.data?.length == 0) {
       setErrorMsg("Song Not Found");
     } else {
+      setOpenResultDialog(true);
       addSongToHisory(response?.data);
       setRecognizeSong(response?.data);
     }

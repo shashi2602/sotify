@@ -13,7 +13,7 @@ export default function Home() {
   const { errorMsg, statusOfFetch, recognizedSong } = useSotifyContext();
   return (
     <ThemeProvider attribute="true">
-      <main className="flex items-center justify-center h-screen m-4">
+      <main className="flex items-center justify-center">
         <div className="w-full lg:max-w-2xl mx-auto ">
           <h1 className="text-9xl font-semibold text-slate-900 dark:text-green-100 text-center">
             Sotify

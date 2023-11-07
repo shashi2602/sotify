@@ -51,13 +51,12 @@ export default function HistoryComponent() {
               </div>
               <div
                 className="font-sans flex-1"
-                onClick={() => {
-                  setRecognizeSong(song);
-                  openResultsDialog();
-                }}
               >
                 <div className="flex justify-between">
-                  <p className="font-semibold">{song?.title}</p>
+                  <p className="font-semibold" onClick={() => {
+                  setRecognizeSong(song);
+                  openResultsDialog();
+                }}>{song?.title}</p>
                   <MdDeleteOutline
                     onClick={() => onClickDelete(song?.title)}
                     className="dark:text-black bg-green-100 rounded"

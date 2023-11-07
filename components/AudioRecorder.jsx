@@ -10,7 +10,7 @@ const AudioRecorder = () => {
     setStatusOfFetch,
     setRecognizeSong,
     addSongToHisory,
-    openResultsDialog,
+    setOpenResultDialog
   } = useSotifyContext();
   const startRecording = async () => {
     setRecognizeSong([]);
@@ -30,16 +30,12 @@ const AudioRecorder = () => {
           data.append("file", blob);
           setStatusOfFetch("Finding Song...");
           const response = await finderPost(data);
-          console.log(
-            "🚀 ~ file: AudioRecorder.jsx:28 ~ mediaRecorder.addEventListener ~ response:",
-            response
-          );
           if (response?.data?.length == 0) {
             setErrorMsg(response.message);
           } else {
             setRecognizeSong(response?.data);
             addSongToHisory(response?.data);
-            openResultsDialog();
+            setOpenResultDialog(true);
           }
           setStatusOfFetch("");
         });

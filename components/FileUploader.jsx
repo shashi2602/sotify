@@ -3,7 +3,7 @@ import { useSotifyContext } from "@/context/SotifyContext";
 import { finderPost } from "@/utils/finderapi";
 
 const FileUploader = () => {
-  const { setErrorMsg, setStatusOfFetch, setRecognizeSong, addSongToHisory } =
+  const { setErrorMsg, setStatusOfFetch, setRecognizeSong, addSongToHisory,setOpenResultDialog } =
     useSotifyContext();
   const handleFileChange = async (event) => {
     setRecognizeSong([]);
@@ -13,16 +13,13 @@ const FileUploader = () => {
       data.append("file", file);
       setStatusOfFetch("Finding Song...");
       const response = await finderPost(data);
-      console.log(
-        "🚀 ~ file: FileUploader.jsx:12 ~ handleFileChange ~ response:",
-        response
-      );
-
       if (response?.data?.length == 0) {
         setErrorMsg(response.message);
       } else {
+        
         setRecognizeSong(response?.data);
         addSongToHisory(response?.data);
+        setOpenResultDialog(true);
       }
       setStatusOfFetch("");
     } else {
