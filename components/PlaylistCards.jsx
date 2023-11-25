@@ -13,7 +13,7 @@ export default function PlaylistCards() {
       <div className="flex gap-2 my-2">
         {spotifyPlaylists?.map((card, i) => {
           return (
-            <div key={i} className="flex p-2 bg-green-100 rounded">
+            <div key={i} className="flex p-2 bg-gray-100 rounded">
               <div
                 className="h-20 w-20 rounded-md"
                 style={{

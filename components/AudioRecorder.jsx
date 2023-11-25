@@ -67,7 +67,7 @@ const AudioRecorder = () => {
         </div>
       ) : (
         <button
-          className=" cursor-pointer hover:opacity-95  duration-500 dark:text-white shadow-slate-100  font-lexend  p-2 px-4 flex text-black rounded-full items-center hover:bg-green-200 hover:dark:text-green-600"
+          className=" cursor-pointer hover:opacity-95  duration-500 bg-gray-300  shadow-slate-100  font-lexend  p-2 px-4 flex text-black rounded-full items-center hover:bg-gray-200 "
           onClick={startRecording}
         >
           {"🎤 Record"}

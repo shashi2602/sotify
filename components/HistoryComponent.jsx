@@ -36,7 +36,7 @@ export default function HistoryComponent() {
           return (
             <div
               key={i}
-              className="flex gap-2 hover:bg-green-50 transition hover:ease-in-out p-2 rounded hover:cursor-pointer dark:hover:text-black flex-wrap"
+              className="flex gap-2 hover:bg-gray-50 transition hover:ease-in-out p-2 rounded hover:cursor-pointer flex-wrap"
             >
               <div
                 className="w-14 h-14 rounded-md flex items-center justify-center"
@@ -59,7 +59,7 @@ export default function HistoryComponent() {
                 }}>{song?.title}</p>
                   <MdDeleteOutline
                     onClick={() => onClickDelete(song?.title)}
-                    className="dark:text-black bg-green-100 rounded"
+                    className="dark:text-black"
                   />
                 </div>
                 <i>{song?.subtitle}</i>

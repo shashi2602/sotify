@@ -5,6 +5,7 @@ import { FaSpotify, FaPlay, FaPause, FaYoutube } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 import { AiFillCheckCircle } from "react-icons/ai";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 function ResultsDialog({ result }) {
   const {
@@ -19,14 +20,18 @@ function ResultsDialog({ result }) {
   } = useSotifyContext();
 
   const onClickSpotify = async (title) => {
-    const { data } = await instance.get("search", {
-      params: {
-        q: title.replace(/ *\([^)]*\) */g, ""),
-        type: "track",
-        limit: 10,
-      },
-    });
-    setSpotifySongs(data.tracks.items);
+    if(status =="unauthenticated"){
+      toast.error("Login with Spotify")
+    }else{
+      const { data } = await instance.get("search", {
+        params: {
+          q: title.replace(/ *\([^)]*\) */g, ""),
+          type: "track",
+          limit: 10,
+        },
+      });
+      setSpotifySongs(data.tracks.items);
+    }
   };
 
   return (
@@ -46,11 +51,11 @@ function ResultsDialog({ result }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div className="fixed inset-0 backdrop-blur-sm bg-opacity-25" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <div className="flex min-h-full items-center justify-center text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -60,7 +65,7 @@ function ResultsDialog({ result }) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-black/95">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-white p-6  align-middle shadow-xl transition-all ">
                   <div className="grid grid-flow-row grid-rows-2 justify-items-center">
                     <div
                       className="shadow-lg"
@@ -80,7 +85,7 @@ function ResultsDialog({ result }) {
                     </div>
                   </div>
                   <div className="flex justify-center content-center gap-2 mt-2">
-                    <a
+                    <Link
                       href={`https://www.youtube.com/watch?v=${result?.meta_data?.youtube?.video_id}`}
                       className="text-sm"
                     >
@@ -88,23 +93,22 @@ function ResultsDialog({ result }) {
                         <FaYoutube className="w-5 h-5 fill-red-600" />
                         <p className="text-sm">Youtube</p>
                       </div>
-                    </a>
+                    </Link>
                     <button
                       className={`flex gap-1 rounded-md p-2 bg-green-100 text-green-500`}
-                      disabled={status == "unauthenticated"}
                       onClick={() => onClickSpotify(result?.title)}
                     >
                       <FaSpotify className="w-5 h-5 fill-green-600" />
                       <p className="text-sm">Spotify</p>
                     </button>
                   </div>
-                  <div>
+                  {/* <div>
                     {status == "unauthenticated" && (
                       <p className="text-green-400 text-center p-2 mt-2 ">
                         Login to get spotify songs
                       </p>
                     )}
-                  </div>
+                  </div> */}
                   <div className="mt-6">
                     {spotifySongs.map((item, i) => {
                       if (item) {
@@ -149,20 +153,24 @@ function SpotifySongCard({ item, playlists, onSelect }) {
           style={{
             backgroundImage: `url(${item.album.images[2].url})`,
           }}
-        >
+        > {
+          item.preview_url&&<>
           <audio src={item.preview_url} ref={audioRef}></audio>
           {isPlaying ? (
-            <FaPause onClick={handlePlayPause} />
+            <FaPause onClick={handlePlayPause} className="text-white"/>
           ) : (
-            <FaPlay onClick={handlePlayPause} />
+            <FaPlay onClick={handlePlayPause} className="text-white"/>
           )}
+          </>
+        }
+          
         </div>
         <div className="flex-1">
           <div className="flex justify-between">
             <p>{item.name}</p>
             <IoMdAdd
               onClick={() => setShowPlaylists(!showPlaylists)}
-              className="bg-green-100 dark:text-black rounded"
+              className="bg-gray-100 dark:text-black rounded"
             />
           </div>
           <div className="flex gap-2 justify-start flex-wrap gap-y-0">
@@ -180,7 +188,7 @@ function SpotifySongCard({ item, playlists, onSelect }) {
         <div className="flex gap-2 m-2 transition ease-in-out duration-300 ">
           {playlists?.map((playlist, i) => {
             return (
-              <div key={i} className="bg-green-100 p-2 rounded-lg">
+              <div key={i} className="bg-gray-100 p-2 rounded-lg">
                 <div
                   className="h-14 w-14 rounded-md flex "
                   onClick={() => {
@@ -203,7 +211,7 @@ function SpotifySongCard({ item, playlists, onSelect }) {
                   {playlist?.tracks_items?.some(
                     (track) => track.track.name == item.name
                   ) ? (
-                    <AiFillCheckCircle className=" " />
+                    <AiFillCheckCircle className="text-white" />
                   ) : (
                     ""
                   )}

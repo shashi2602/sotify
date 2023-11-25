@@ -44,7 +44,7 @@ const FileUploader = () => {
         style={{
           cursor: "pointer",
         }}
-        className="cursor-pointer  duration-500 bg-green-200 hover:bg-transparent hover:dark:text-white font-lexend p-2 px-4 flex text-green-600 rounded-full items-center"
+        className="cursor-pointer hover:opacity-95  duration-500 bg-gray-300  shadow-slate-100  font-lexend  p-2 px-4 flex text-black rounded-full items-center hover:bg-gray-200 "
       >
         💿 Upload
       </label>
