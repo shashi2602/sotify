@@ -6,5 +6,5 @@
 But it takes some time to find the song as  i was hosting it on replit free tire click here to check status
 ## Screenshots
 
-![App Screenshot](https://dqy38fnwh4fqs.cloudfront.net/UHLK9L8RGNGKNRJIED9D9EJERBR6/projects/sotify.webp?1700911476054)
+![App Screenshot](https://raw.githubusercontent.com/shashi2602/sotify/main/sotify.jpg)
 
