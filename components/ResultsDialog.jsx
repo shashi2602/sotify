@@ -86,7 +86,7 @@ function ResultsDialog({ result }) {
                   </div>
                   <div className="flex justify-center content-center gap-2 mt-2">
                     <Link
-                      href={`https://www.youtube.com/watch?v=${result?.meta_data?.youtube?.video_id}`}
+                      href={`https://www.youtube.com/watch?v=${result?.meta_data?.youtube?.id}`}
                       className="text-sm"
                     >
                       <div className="flex gap-1 p-2 rounded-md bg-red-100 text-red-600">

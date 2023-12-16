@@ -43,6 +43,7 @@ export default function InstagramSearchComponent() {
 
   const submitLink = async () => {
     setRecognizeSong([]);
+    setErrorMsg('')
     setStatusOfFetch("Finding Song...");
     const response = await finderGet(link);
     

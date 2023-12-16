@@ -1,6 +1,6 @@
 import { useSotifyContext } from "@/context/SotifyContext";
 import React, { useState, useRef } from "react";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdClose  } from "react-icons/md";
 // import { FaPlay,FaPause } from "react-icons/fa";
 
 export default function HistoryComponent() {
@@ -30,26 +30,37 @@ export default function HistoryComponent() {
   if (localHistoryData.length == 0) return "";
   return (
     <>
-      <p className="font-bold ">History</p>
-      <div className="grid gap-1">
+      <p className="font-bold text-center mt-4">Recent</p>
+      <div className="flex gap-2 justify-center flex-wrap">
         {localHistoryData?.map((song, i) => {
           return (
             <div
               key={i}
-              className="flex gap-2 hover:bg-gray-50 transition hover:ease-in-out p-2 rounded hover:cursor-pointer flex-wrap"
+              className="flex gap-2 hover:bg-gray-50 transition hover:ease-in-out py-2 rounded hover:cursor-pointer flex-wrap"
             >
               <div
-                className="w-14 h-14 rounded-md flex items-center justify-center"
+                className="w-20 h-20 sm:w-28 sm:h-28 rounded-md flex place-content-end"
                 style={{
                   backgroundImage: `url(${song?.cover_art})`,
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat",
                 }}
+                onClick={() => {
+                  setRecognizeSong(song);
+                  openResultsDialog();
+                }}
+                
               >
+                <MdClose 
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      onClickDelete(song?.title)}}
+                    className="bg-gray-100 m-2 rounded-full text-sm"
+                  />
                 {/* <audio src={song.preview_url} ref={audioRef}></audio>
               {isPlaying?<FaPause onClick={handlePlayPause}/>:<FaPlay onClick={handlePlayPause}/>} */}
               </div>
-              <div
+              {/* <div
                 className="font-sans flex-1"
               >
                 <div className="flex justify-between">
@@ -63,7 +74,7 @@ export default function HistoryComponent() {
                   />
                 </div>
                 <i>{song?.subtitle}</i>
-              </div>
+              </div> */}
             </div>
           );
         })}

@@ -7,6 +7,7 @@ const FileUploader = () => {
     useSotifyContext();
   const handleFileChange = async (event) => {
     setRecognizeSong([]);
+    setErrorMsg('')
     const file = event.target.files[0];
     if (file) {
       const data = new FormData();
@@ -44,7 +45,7 @@ const FileUploader = () => {
         style={{
           cursor: "pointer",
         }}
-        className="cursor-pointer hover:opacity-95  duration-500 bg-gray-300  shadow-slate-100  font-lexend  p-2 px-4 flex text-black rounded-full items-center hover:bg-gray-200 "
+        className="cursor-pointer hover:opacity-95  duration-500 bg-gray-300  shadow-slate-100  font-lexend  p-2 px-4 flex text-black rounded-full items-center hover:bg-gray-200 font-semibold"
       >
         💿 Upload
       </label>

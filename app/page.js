@@ -17,12 +17,12 @@ export default function Home() {
     //   backgroundImage: `url(/backdrop.jpg)`,
     // }}
     >
-      <div className="w-full backdrop-blur-lg flex items-center justify-center h-screen">
+      <div className="w-full backdrop-blur-lg flex items-center justify-center h-screen p-4 sm:p-0">
         <div className="w-full lg:max-w-2xl mx-auto">
-          <h1 className="text-9xl font-semibold text-slate-900  text-center font-sans">
+          <h1 className="text-8xl sm:text-9xl font-semibold text-slate-900  text-center font-sans">
             Sotify
           </h1>
-          <p className="text-center font-semibold font-sans">
+          <p className="text-center pr-3 sm:pr-0 font-semibold font-sans text-sm sm:text-base">
             Find the song that you like
           </p>
           <div className="text-center">
@@ -47,11 +47,12 @@ export default function Home() {
             <AudioRecorder />
           </div>
 
-          <PlaylistCards />
+          {/* <PlaylistCards /> */}
           <HistoryComponent />
           <ResultsDialog result={recognizedSong} />
         </div>
       </div>
+      <div className="fixed bottom-0 min-w-full text-center font-semibold p-2">Made with ❤️ in india</div>
     </main>
   );
 }
